@@ -140,7 +140,8 @@ class CIJoe
   end
 
   def git_user_and_project
-    Config.remote.origin.url.to_s.chomp('.git').split(':')[-1].split('/')[-2, 2]
+    path = Config.remote.origin.url.to_s.chomp('.git').split(':')[-1]
+    Config.remote.origin.url =~ /github.com/ ? path.split('/')[-2, 2] : ["", path.split('/').last]
   end
 
   def git_branch
