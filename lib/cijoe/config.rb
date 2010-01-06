@@ -14,7 +14,7 @@ class CIJoe
     end
 
     def to_s
-      git_command = "git config #{config_string}"
+      git_command = "git config #{config_string.gsub("_", "-")}"
       result = `#{git_command} 2>&1`.chomp
       process_status = $?
       
