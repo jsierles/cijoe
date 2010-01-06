@@ -28,7 +28,8 @@ class CIJoe
     Dir.chdir(project_path)
 
     @user, @project = git_user_and_project
-    @url = "http://github.com/#{@user}/#{@project}"
+    project_url_template = Config.project_url_template || "http://github.com/{{user}}/{{project}}"
+    @url = %w(user project).inject(project_url_template) {|acc, var| acc.gsub("{{#{var}}}", instance_variable_get("@#{var}"))  }
 
     @last_build = nil
     @current_build = nil
