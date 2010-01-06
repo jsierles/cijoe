@@ -1,7 +1,7 @@
 class CIJoe
   class Commit < Struct.new(:sha, :user, :project)
     def url
-      commit_url_template = Config.commit_url_template || "http://github.com/{{user}}/{{project}}/commit/{{sha}}"
+      commit_url_template = Config.cijoe.commit_url_template || "http://github.com/{{user}}/{{project}}/commit/{{sha}}"
       %w(user project sha).inject(commit_url_template) {|acc, var| acc.gsub("{{#{var}}}", send(var.to_sym))  }
     end
 
